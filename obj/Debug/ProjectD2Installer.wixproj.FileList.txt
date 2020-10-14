@@ -1,6 +1,0 @@
-C:\Users\Austin\source\repos\ProjectD2Installer\bin\Debug\ProjectD2Installer.msi
-C:\Users\Austin\source\repos\ProjectD2Installer\bin\Debug\ProjectD2Installer.wixpdb
-obj\Debug\Product.wixobj
-obj\Debug\ProjectD2Installer.wixproj.BindContentsFileListnull.txt
-obj\Debug\ProjectD2Installer.wixproj.BindOutputsFileListnull.txt
-obj\Debug\ProjectD2Installer.wixproj.BindBuiltOutputsFileListnull.txt
