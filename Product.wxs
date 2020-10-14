@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="Project Diablo 2" Language="1033" Version="1.0.0.0" Manufacturer="ProjectD2" UpgradeCode="ee071942-c3d8-4e03-a1fb-01c924bd24c5">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<WixVariable Id="WixUIInfoIco" Value="SourceFiles\PD2_Icon_32x32.bmp"/>
+		<WixVariable Id="WixUIExclamationIco" Value="SourceFiles\PD2_Icon_32x32.bmp"/>
+		<Icon Id="PD2.ico" SourceFile="SourceFiles\PD2_Icon.ico"/>
+		<Property Id="ARPRODUCTICON" Value="PD2.ico" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="DesktopFolder" Name="Desktop">
+				<Component Id="ApplicationShortcutDesktop" Guid="*">
+					<Shortcut Id="ApplicationShortcutDesktop"
+							  Name="Project Diablo 2"
+							  Description="Play Project Diablo 2"
+							  Target="[PD2INSTALLFOLDER]PD2Launcher.exe"
+							  WorkingDirectory="PD2INSTALLFOLDER"/>
+					<RemoveFolder Id="DesktopFolder" On="uninstall"/>
+					<RegistryValue
+						Root="HKCU"
+						Key="Software/ProjectD2"
+						Name="installed"
+						Type="integer"
+						Value="1"
+						KeyPath="yes"/>
+				</Component>
+			</Directory>
+
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="APPLICATIONROOTDIRECTORY" Name="Diablo II">
+					<Directory Id="PD2INSTALLFOLDER" Name="ProjectD2">
+						<Directory Id="MPQFIXERFOLDER" Name="MpqFixer">
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+
+		<DirectoryRef Id="TARGETDIR">
+			<Component Id="RegistryEntries" Guid="*">
+				<RegistryKey Root="HKCU"
+							 Key="Software\Blizzard Entertainment\Diablo II\VideoConfig">
+					<RegistryValue Type="integer" Name="Render" Value="0" KeyPath="yes"/>
+				</RegistryKey>
+			</Component>
+		</DirectoryRef>
+
+		<ComponentGroup Id="ProductComponents" Directory="PD2INSTALLFOLDER">
+			<Component Id="PD2Launcher.exe" Guid="*">
+				<File Id="PD2Launcher.exe" Source="SourceFiles\PD2Launcher.exe" KeyPath="yes" Checksum="yes"/>
+			</Component>
+			<Component Id="sciter.dll" Guid="*">
+				<File Id="sciter.dll" Source="SourceFiles\sciter.dll" KeyPath="yes" Checksum="yes"/>
+			</Component>
+		</ComponentGroup>
+
+		<ComponentGroup Id="MpqFixerComponents" Directory="MPQFIXERFOLDER">
+			<Component Id="FIX_MPQS_RUN_AS_ADMIN.bat" Guid="*">
+				<File Id="FIX_MPQS_RUN_AS_ADMIN.bat" Source="SourceFiles\MPQFixer\FIX_MPQS_RUN_AS_ADMIN.bat" KeyPath="yes" Checksum="yes"/>
+			</Component>
+			<Component Id="MSCOMCTL.OCX" Guid="*">
+				<File Id="MSCOMCTL.OCX" Source="SourceFiles\MPQFixer\MSCOMCTL.OCX" KeyPath="yes" Checksum="yes"/>
+			</Component>
+			<Component Id="SFMPQ.dll" Guid="*">
+				<File Id="SFMPQ.dll" Source="SourceFiles\MPQFixer\SFMPQ.dll" KeyPath="yes" Checksum="yes"/>
+			</Component>
+			<Component Id="VB40032.DLL" Guid="*">
+				<File Id="VB40032.DLL" Source="SourceFiles\MPQFixer\VB40032.DLL" KeyPath="yes" Checksum="yes"/>
+			</Component>
+			<Component Id="WinMPQ.exe" Guid="*">
+				<File Id="WinMPQ.exe" Source="SourceFiles\MPQFixer\WinMPQ.exe" KeyPath="yes" Checksum="yes"/>
+			</Component>
+		</ComponentGroup>
+
+		<Feature Id="PD2Folder" Title="ProjectD2Installer" Level="1">
+			<Component Id="CreatePD2Folder" Directory="PD2INSTALLFOLDER" Guid="">
+				<CreateFolder />
+				<RemoveFolder Id="PD2INSTALLFOLDER" On="uninstall"/>
+			</Component>
+			<Component Id="CreateMPQFixerFolder" Directory="MPQFIXERFOLDER" Guid="">
+				<CreateFolder />
+				<RemoveFolder Id="MPQFIXERFOLDER" On="uninstall"/>
+			</Component>
+		</Feature>
+
+		<Feature Id="MainApplication" Title="ProjectD2Installer" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="MpqFixerComponents" />
+			<ComponentRef Id="ApplicationShortcutDesktop"/>
+		</Feature>
+
+		<Feature Id="RegistrySet" Title="ProjectD2Installer" Level="1">
+			<ComponentRef Id="RegistryEntries"/>
+		</Feature>
+
+		<CustomAction Id="RunMPQFixer"
+					  ExeCommand="[MPQFIXERFOLDER]FIX_MPQS_RUN_AS_ADMIN.bat"
+					  Directory="MPQFIXERFOLDER" Execute="deferred" Return="asyncWait"
+					  Impersonate="no"/>
+
+		<InstallExecuteSequence>
+			<Custom Action="RunMPQFixer" After="InstallFiles">NOT Installed</Custom>
+		</InstallExecuteSequence>
+
+		<Property Id="WIXUI_INSTALLDIR" Value="APPLICATIONROOTDIRECTORY"/>
+		<UI>
+			<UIRef Id="WixUI_InstallDir" />
+			<Publish Dialog="WelcomeDlg"
+					 Control="Next"
+					 Event="NewDialog"
+					 Value="InstallDirDlg"
+					 Order="2">1</Publish>
+			<Publish Dialog="InstallDirDlg"
+					 Control="Back"
+					 Event="NewDialog"
+					 Value="WelcomeDlg"
+					 Order="2">1</Publish>
+		</UI>
+	</Product>
+</Wix>

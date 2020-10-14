@@ -1,0 +1,7 @@
+obj\Release\Product.wixobj
+C:\Users\Austin\source\repos\ProjectD2Installer\bin\Release\cab1.cab
+C:\Users\Austin\source\repos\ProjectD2Installer\bin\Release\ProjectD2Installer.msi
+C:\Users\Austin\source\repos\ProjectD2Installer\bin\Release\ProjectD2Installer.wixpdb
+obj\Release\ProjectD2Installer.wixproj.BindContentsFileListnull.txt
+obj\Release\ProjectD2Installer.wixproj.BindOutputsFileListnull.txt
+obj\Release\ProjectD2Installer.wixproj.BindBuiltOutputsFileListnull.txt

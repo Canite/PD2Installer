@@ -1,0 +1,7 @@
+SourceFiles\MPQFixer\FIX_MPQS_RUN_AS_ADMIN.bat
+SourceFiles\MPQFixer\MSCOMCTL.OCX
+SourceFiles\PD2Launcher.exe
+SourceFiles\sciter.dll
+SourceFiles\MPQFixer\SFMPQ.dll
+SourceFiles\MPQFixer\VB40032.DLL
+SourceFiles\MPQFixer\WinMPQ.exe

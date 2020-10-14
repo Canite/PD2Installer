@@ -1,0 +1,3 @@
+C:\Users\Austin\source\repos\ProjectD2Installer\bin\Release\cab1.cab
+C:\Users\Austin\source\repos\ProjectD2Installer\bin\Release\ProjectD2Installer.msi
+C:\Users\Austin\source\repos\ProjectD2Installer\bin\Release\ProjectD2Installer.wixpdb
