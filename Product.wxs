@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Project Diablo 2" Language="1033" Version="1.0.0.0" Manufacturer="ProjectD2" UpgradeCode="ee071942-c3d8-4e03-a1fb-01c924bd24c5">
+	<Product Id="*" Name="Project Diablo 2" Language="1033" Version="1.0.0.1" Manufacturer="ProjectD2" UpgradeCode="ee071942-c3d8-4e03-a1fb-01c924bd24c5">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-		<WixVariable Id="WixUIInfoIco" Value="SourceFiles\PD2_Icon_32x32.bmp"/>
-		<WixVariable Id="WixUIExclamationIco" Value="SourceFiles\PD2_Icon_32x32.bmp"/>
-		<Icon Id="PD2.ico" SourceFile="SourceFiles\PD2_Icon.ico"/>
+		<WixVariable Id="WixUIInfoIco" Value="SourceFiles\img\PD2_Icon_32x32.bmp"/>
+		<WixVariable Id="WixUIExclamationIco" Value="SourceFiles\img\PD2_Icon_32x32.bmp"/>
+		<WixVariable Id="WixUIDialogBmp" Value="SourceFiles\img\banner.bmp"/>
+		<WixVariable Id="WixUIBannerBmp" Value="SourceFiles\img\top_banner.bmp"/>
+
+		<Icon Id="PD2.ico" SourceFile="SourceFiles\img\PD2_Icon.ico"/>
 		<Property Id="ARPRODUCTICON" Value="PD2.ico" />
+		<Property Id="REINSTALLMODE" Value="amus"/>
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+		<MediaTemplate EmbedCab="yes" />
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="DesktopFolder" Name="Desktop">
@@ -22,7 +26,7 @@
 					<RemoveFolder Id="DesktopFolder" On="uninstall"/>
 					<RegistryValue
 						Root="HKCU"
-						Key="Software/ProjectD2"
+						Key="SOFTWARE\ProjectD2"
 						Name="installed"
 						Type="integer"
 						Value="1"

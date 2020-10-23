@@ -45,16 +45,19 @@
   <ItemGroup>
     <Folder Include="SourceFiles" />
     <Folder Include="SourceFiles\MPQFixer" />
+    <Folder Include="SourceFiles\img" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SourceFiles\img\banner.bmp" />
+    <Content Include="SourceFiles\img\PD2_Icon.ico" />
+    <Content Include="SourceFiles\img\PD2_Icon_32x32.bmp" />
+    <Content Include="SourceFiles\img\top_banner.bmp" />
     <Content Include="SourceFiles\MPQFixer\FIX_MPQS_RUN_AS_ADMIN.bat" />
     <Content Include="SourceFiles\MPQFixer\MSCOMCTL.OCX" />
     <Content Include="SourceFiles\MPQFixer\SFMPQ.dll" />
     <Content Include="SourceFiles\MPQFixer\VB40032.DLL" />
     <Content Include="SourceFiles\MPQFixer\WinMPQ.exe" />
     <Content Include="SourceFiles\PD2Launcher.exe" />
-    <Content Include="SourceFiles\PD2_Icon.ico" />
-    <Content Include="SourceFiles\PD2_Icon_32x32.bmp" />
     <Content Include="SourceFiles\sciter.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +65,9 @@
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
     </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings1.wxl" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
