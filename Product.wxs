@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product Id="*" Name="Project Diablo 2" Language="1033" Version="1.0.0.1" Manufacturer="ProjectD2" UpgradeCode="ee071942-c3d8-4e03-a1fb-01c924bd24c5">
-		<Package InstallerVersion="301" Compressed="yes" InstallScope="perMachine" />
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<WixVariable Id="WixUIInfoIco" Value="SourceFiles\img\PD2_Icon_32x32.bmp"/>
 		<WixVariable Id="WixUIExclamationIco" Value="SourceFiles\img\PD2_Icon_32x32.bmp"/>
@@ -51,7 +51,6 @@
 					<RegistryValue Type="integer" Name="Render" Value="0" KeyPath="yes"/>
 				</RegistryKey>
 			</Component>
-			<Merge Id="VCRedist" SourceFile="SourceFiles\redist\MSVC\v142\MergeModules\Microsoft_VC142_CRT_x86.msm" DiskId="1" Language="0"/>
 		</DirectoryRef>
 
 		<ComponentGroup Id="ProductComponents" Directory="PD2INSTALLFOLDER">
@@ -101,12 +100,8 @@
 		<Feature Id="RegistrySet" Title="ProjectD2Installer" Level="1">
 			<ComponentRef Id="RegistryEntries"/>
 		</Feature>
-    
-		<Feature Id="VCRedist" Title="Visual C++ v142 x64 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
-			<MergeRef Id="VCRedist"/>
-		</Feature>
-  
-   	<CustomAction Id="RunMPQFixer"
+
+		<CustomAction Id="RunMPQFixer"
 					  ExeCommand="[MPQFIXERFOLDER]FIX_MPQS_RUN_AS_ADMIN.bat"
 					  Directory="MPQFIXERFOLDER" Execute="deferred" Return="asyncWait"
 					  Impersonate="no"/>
