@@ -60,6 +60,9 @@
 			<Component Id="sciter.dll" Guid="*">
 				<File Id="sciter.dll" Source="SourceFiles\sciter.dll" KeyPath="yes" Checksum="yes"/>
 			</Component>
+			<Component Id="vc_redist.x86.exe" Guid="*">
+				<File Id="vc_redist.x86.exe" Source="SourceFiles\vc_redist.x86.exe" KeyPath="yes" Checksum="yes"/>
+			</Component>
 		</ComponentGroup>
 
 		<ComponentGroup Id="MpqFixerComponents" Directory="MPQFIXERFOLDER">
@@ -101,6 +104,14 @@
 			<ComponentRef Id="RegistryEntries"/>
 		</Feature>
 
+		<CustomAction Id="RunVcredist"
+									Directory="PD2INSTALLFOLDER"
+									ExeCommand="[PD2INSTALLFOLDER]vc_redist.x86.exe /install /passive /norestart"
+									Execute="deferred"
+									Return="asyncWait"
+									Impersonate="no"
+									/>
+    
 		<CustomAction Id="RunMPQFixer"
 					  ExeCommand="[MPQFIXERFOLDER]FIX_MPQS_RUN_AS_ADMIN.bat"
 					  Directory="MPQFIXERFOLDER" Execute="deferred" Return="asyncWait"
@@ -108,6 +119,7 @@
 
 		<InstallExecuteSequence>
 			<Custom Action="RunMPQFixer" After="InstallFiles">NOT Installed</Custom>
+			<Custom Action="RunVcredist" After="InstallFiles">NOT Installed</Custom>
 		</InstallExecuteSequence>
 
 		<Property Id="WIXUI_INSTALLDIR" Value="APPLICATIONROOTDIRECTORY"/>
