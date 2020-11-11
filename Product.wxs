@@ -108,7 +108,7 @@
 									Directory="PD2INSTALLFOLDER"
 									ExeCommand="[PD2INSTALLFOLDER]vc_redist.x86.exe /install /passive /norestart"
 									Execute="deferred"
-									Return="asyncWait"
+									Return="asyncNoWait"
 									Impersonate="no"
 									/>
     
