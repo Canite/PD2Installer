@@ -102,11 +102,11 @@
 			<ComponentRef Id="RegistryEntries"/>
 		</Feature>
     
-		<Feature Id="VCRedist" Title="Visual C++ v142 x86 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
+		<Feature Id="VCRedist" Title="Visual C++ v142 x64 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
 			<MergeRef Id="VCRedist"/>
 		</Feature>
   
-		<CustomAction Id="RunMPQFixer"
+   	<CustomAction Id="RunMPQFixer"
 					  ExeCommand="[MPQFIXERFOLDER]FIX_MPQS_RUN_AS_ADMIN.bat"
 					  Directory="MPQFIXERFOLDER" Execute="deferred" Return="asyncWait"
 					  Impersonate="no"/>
