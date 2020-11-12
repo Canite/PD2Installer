@@ -60,6 +60,9 @@
 			<Component Id="sciter.dll" Guid="*">
 				<File Id="sciter.dll" Source="SourceFiles\sciter.dll" KeyPath="yes" Checksum="yes"/>
 			</Component>
+			<Component Id="vc_redist.x86.exe" Guid="*">
+				<File Id="vc_redist.x86.exe" Source="SourceFiles\vc_redist.x86.exe" KeyPath="yes" Checksum="yes"/>
+			</Component>
 		</ComponentGroup>
 
 		<ComponentGroup Id="MpqFixerComponents" Directory="MPQFIXERFOLDER">
@@ -100,7 +103,27 @@
 		<Feature Id="RegistrySet" Title="ProjectD2Installer" Level="1">
 			<ComponentRef Id="RegistryEntries"/>
 		</Feature>
-
+    
+		<CustomAction Id="VerifyInstallPath" Script="vbscript">
+			<![CDATA[
+				Set fso = CreateObject("Scripting.FileSystemObject")
+				gameExePath = Session.Property("APPLICATIONROOTDIRECTORY") & "game.exe"
+				If (fso.FileExists(gameExePath)) Then
+					Session.Property("GAME_EXE_EXISTS") = "1"
+				Else
+					Session.Property("GAME_EXE_EXISTS") = ""
+				End If
+				]]>
+		</CustomAction>
+    
+		<CustomAction Id="RunVcredist"
+						Directory="PD2INSTALLFOLDER"
+						ExeCommand="[PD2INSTALLFOLDER]vc_redist.x86.exe /install /passive /norestart"
+						Execute="deferred"
+						Return="asyncNoWait"
+						Impersonate="no"
+						/>
+    
 		<CustomAction Id="RunMPQFixer"
 					  ExeCommand="[MPQFIXERFOLDER]FIX_MPQS_RUN_AS_ADMIN.bat"
 					  Directory="MPQFIXERFOLDER" Execute="deferred" Return="asyncWait"
@@ -108,21 +131,38 @@
 
 		<InstallExecuteSequence>
 			<Custom Action="RunMPQFixer" After="InstallFiles">NOT Installed</Custom>
+			<Custom Action="RunVcredist" After="InstallFiles">NOT Installed</Custom>
 		</InstallExecuteSequence>
+    
+		<Property Id="GAME_EXE_EXISTS" Value="0"/>
 
 		<Property Id="WIXUI_INSTALLDIR" Value="APPLICATIONROOTDIRECTORY"/>
 		<UI>
 			<UIRef Id="WixUI_InstallDir" />
+
 			<Publish Dialog="WelcomeDlg"
 					 Control="Next"
 					 Event="NewDialog"
 					 Value="InstallDirDlg"
 					 Order="2">1</Publish>
+      
 			<Publish Dialog="InstallDirDlg"
 					 Control="Back"
 					 Event="NewDialog"
 					 Value="WelcomeDlg"
 					 Order="2">1</Publish>
+
+			<Publish Dialog="InstallDirDlg"
+					Control="Next"
+					Event="DoAction"
+					Value="VerifyInstallPath"
+					Order="5">1</Publish>
+      
+			<Publish Dialog="InstallDirDlg" 
+					Control="Next" 
+					Event="SpawnDialog" 
+					Value="InvalidDirDlg" 
+					Order="6">NOT GAME_EXE_EXISTS</Publish>
 		</UI>
 	</Product>
 </Wix>
