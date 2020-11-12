@@ -109,9 +109,9 @@
 				Set fso = CreateObject("Scripting.FileSystemObject")
 				gameExePath = Session.Property("APPLICATIONROOTDIRECTORY") & "game.exe"
 				If (fso.FileExists(gameExePath)) Then
-					Session.Property("GAMEEXEEXISTS") = "1"
+					Session.Property("GAME_EXE_EXISTS") = "1"
 				Else
-					Session.Property("GAMEEXEEXISTS") = ""
+					Session.Property("GAME_EXE_EXISTS") = ""
 				End If
 				]]>
 		</CustomAction>
@@ -134,7 +134,7 @@
 			<Custom Action="RunVcredist" After="InstallFiles">NOT Installed</Custom>
 		</InstallExecuteSequence>
     
-		<Property Id="GAMEEXEEXISTS"/>
+		<Property Id="GAME_EXE_EXISTS" Value="0"/>
 
 		<Property Id="WIXUI_INSTALLDIR" Value="APPLICATIONROOTDIRECTORY"/>
 		<UI>
@@ -162,7 +162,7 @@
 					Control="Next" 
 					Event="SpawnDialog" 
 					Value="InvalidDirDlg" 
-					Order="6">NOT GAMEEXEEXISTS</Publish>
+					Order="6">NOT GAME_EXE_EXISTS</Publish>
 		</UI>
 	</Product>
 </Wix>
